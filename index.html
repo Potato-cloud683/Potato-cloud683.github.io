@@ -23,15 +23,14 @@
 <button onclick="Check()">Leave a review (either YAY or neigh)</button>
 <p id="message"></p>
 	<button onclick="lo()">Learn more about the owner</button>
-	<img id="me" height="500" width="400">
+	<img id="me" height="200" width="100">
 <script>
 		 const hmm = [
       "poy.png",
 	   "kitty.jpeg",
 			 ];
+				 let index = 0;
 		function lo(){
-			 let index = 0;
-		
 		index = (index + 1) % hmm.length;
       document.getElementById("me").src = hmm[index];
 	}
