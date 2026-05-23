@@ -25,14 +25,14 @@
 	<button onclick="lo()">Learn more about the owner</button>
 	<img id="me" height="200" width="100">
 <script>
-		 const hmm = [
-      "poy.png",
+		 const held = [
+      "poy.jpeg",
 	   "kitty.jpeg",
 			 ];
 				 let index = 0;
-		function lo(){
-		index = (index + 1) % hmm.length;
-      document.getElementById("me").src = hmm[index];
+		function lo() {
+		index = (index + 1) % held.length;
+      document.getElementById("me").src = held[index];
 	}
 </script>
 	<script>
