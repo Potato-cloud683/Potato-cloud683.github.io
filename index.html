@@ -22,7 +22,19 @@
 <input id="YAY" placeholder="Enter review" ></input>
 <button onclick="Check()">Leave a review (either YAY or neigh)</button>
 <p id="message"></p>
+	<button onclick="lo()">Learn more about the owner</button>
+	<img id=me></img>
 <script>
+	function lo(){
+		 const images = [
+      "poy.png"
+			 ];
+		 let index = 0;
+		index = (index + 1) % images.length;
+      document.getElementById("me").src = images[index];
+	}
+</script>
+	<script>
 function Check() {
 const input = document.getElementById("YAY").value;
 const correctPass = "YAY";
