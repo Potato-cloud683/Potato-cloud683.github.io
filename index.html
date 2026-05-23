@@ -25,12 +25,12 @@
 	<button onclick="lo()">Learn more about the owner</button>
 	<img id="me" height="100" width="100">
 <script>
+			 let index = 0;
 	function lo(){
 		 const images = [
       "poy.png",
 	   "kitty.jpeg",
 			 ];
-		 let index = 0;
 		index = (index + 1) % images.length;
       document.getElementById("me").src = images[index];
 	}
