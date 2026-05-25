@@ -18,7 +18,7 @@
 <!-- Elfsight AI Chatbot | Potato AI -->
 <script src="https://elfsightcdn.com/platform.js" async></script>
 <div class="elfsight-app-b9bf42c3-2319-411e-a7a4-ef195ff8255a" data-elfsight-app-lazy></div>
-<button onclick="nextStage()">Make potato GROW</button>
+<button onclick = "nextStage()">Make potato GROW</button>
 <input id="YAY" placeholder="Enter review" ></input>
 <button onclick="Check()">Leave a review (either YAY or neigh)</button>
 <p id="message"></p>
@@ -71,7 +71,7 @@ const display = document.getElementById("Why");
 
   function nextStage() {
     poindex = (poindex + 1) % image.length;
-    document.getElementById("potato").src = imagepo[index];
+    document.getElementById("potato").src = image[poindex];
     document.getElementById("message").textContent = texts[poindex];
   }
 </script>
