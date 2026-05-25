@@ -67,12 +67,12 @@ const display = document.getElementById("Why");
     "You have lived a long life, for a potato",
   ];
 
-  let index = 0;
+  let poindex = 0;
 
   function nextStage() {
-    index = (index + 1) % image.length;
-    document.getElementById("potato").src = image[index];
-    document.getElementById("message").textContent = texts[index];
+    poindex = (poindex + 1) % image.length;
+    document.getElementById("potato").src = imagepo[index];
+    document.getElementById("message").textContent = texts[poindex];
   }
 </script>
 </body>
