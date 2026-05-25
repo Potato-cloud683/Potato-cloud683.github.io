@@ -9,10 +9,10 @@
   <h1>Day in a life of a potato</h1>
  <p id="Why"></p>
   <img id="potato" src="Potatoes.png" alt="tater" height="450" width="450">
-   <img src="fight.png" height="350" with="400">
-	<iframe src="Die Potato!.html" with="200" height="150"></iframe>
+   <img src="fight.png" height="350" width="400">
+	<iframe src="Die Potato!.html" width="200" height="150"></iframe>
 	<p>Made by Agentpieface</p>
-<iframe src="Potato Dash!.html" with="500" height="300"></iframe>
+<iframe src="Potato Dash!.html" width="500" height="300"></iframe>
 	<p>made by CWTeamAmethyst</p>
 <p></p>\
 <!-- Elfsight AI Chatbot | Potato AI -->
@@ -49,33 +49,32 @@ const display = document.getElementById("Why");
 }
 </script>
   <script>
-    const image = [
-      "Potatoes.png",
-      "start.png",
-      "stalk.png",
-      "flower.png",
-      "chips.png",
-	"child.png",
-    ];
+  const image = [
+    "Potatoes.png",
+    "start.png",
+    "stalk.png",
+    "flower.png",
+    "chips.png",
+    "child.png",
+  ];
 
-    const texts = [
-	"potato",
-     "First you are a peasant potato",
-      "Then you grow a stalk",
-      "Finally you grow flowers",
-      "And now you die just to be eaten by a child.",
-	"You have lived a long life, for a potato",
-    ];
+  const texts = [
+    "potato",
+    "First you are a peasant potato",
+    "Then you grow a stalk",
+    "Finally you grow flowers",
+    "And now you die just to be eaten by a child.",
+    "You have lived a long life, for a potato",
+  ];
 
-    let index = 0;
+  let index = 0;
 
-    function nextStage() {
-      index = (index + 1) % images.length;
-      document.getElementById("potato").src = image[index];
-      document.getElementById("message").textContent = texts[index];
-    }
-  </script>
-
+  function nextStage() {
+    index = (index + 1) % image.length;
+    document.getElementById("potato").src = image[index];
+    document.getElementById("message").textContent = texts[index];
+  }
+</script>
 </body>
 </html>
 
