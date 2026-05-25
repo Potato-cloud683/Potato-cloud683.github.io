@@ -49,13 +49,13 @@ const display = document.getElementById("Why");
 }
 </script>
   <script>
-    const images = [
+    const image = [
       "Potatoes.png",
       "start.png",
       "stalk.png",
       "flower.png",
       "chips.png",
-	"child.png"
+	"child.png",
     ];
 
     const texts = [
@@ -64,14 +64,14 @@ const display = document.getElementById("Why");
       "Then you grow a stalk",
       "Finally you grow flowers",
       "And now you die just to be eaten by a child.",
-	"You have lived a long life, for a potato"
+	"You have lived a long life, for a potato",
     ];
 
     let index = 0;
 
     function nextStage() {
       index = (index + 1) % images.length;
-      document.getElementById("potato").src = images[index];
+      document.getElementById("potato").src = image[index];
       document.getElementById("message").textContent = texts[index];
     }
   </script>
