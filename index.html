@@ -78,6 +78,112 @@ const display = document.getElementById("Why");
     document.getElementById("message").textContent = texts[poindex];
   }
 </script>
+	<style>
+  #cookie-banner {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: #151b2b; border-top: 1px solid #2a3344;
+    padding: 1rem 1.5rem; display: flex; align-items: center;
+    justify-content: space-between; gap: 1rem; z-index: 9999;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #e4e7eb; box-shadow: 0 -4px 20px rgba(0,0,0,0.3); flex-wrap: wrap;
+  }
+  #cookie-banner.hidden { display: none; }
+  #cookie-banner p { margin: 0; font-size: .85rem; flex: 1; min-width: 200px; }
+  #cookie-banner p a { color: #f6821f; }
+  #cookie-banner .btns { display: flex; gap: .5rem; flex-shrink: 0; }
+  #cookie-banner button {
+    padding: .5rem 1.2rem; border-radius: 8px; border: none;
+    font-size: .85rem; font-weight: 600; cursor: pointer; font-family: inherit;
+  }
+  #cookie-banner .accept { background: #f6821f; color: #fff; }
+  #cookie-banner .accept:hover { background: #e0741a; }
+  #cookie-banner .decline { background: transparent; color: #7a8499; border: 1px solid #2a3344; }
+  #cookie-banner .decline:hover { color: #e4e7eb; }
+  @media (max-width: 500px) {
+    #cookie-banner { flex-direction: column; text-align: center; }
+    #cookie-banner .btns { width: 100%; justify-content: center; }
+  }
+</style>
+
+<div id="cookie-banner" class="hidden">
+  <p>🍪 This website uses cookies to understand how visitors use our site. We only track what you do on <strong>this website</strong> — we do not track you on other sites. <a href="/privacy">Learn more</a></p>
+  <div class="btns">
+    <button class="decline" onclick="cookieConsent(false)">Decline</button>
+    <button class="accept" onclick="cookieConsent(true)">Accept</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var TRACK_ENDPOINT = "https://potato-dev-panel.potato-spud.workers.dev/track";
+  var COOKIE_NAME = "cookie_consent";
+  var COOKIE_DAYS = 365;
+
+  var consent = getCookie(COOKIE_NAME);
+  if (consent === null) {
+    document.getElementById("cookie-banner").classList.remove("hidden");
+  } else if (consent === "accepted") {
+    trackPageView();
+  }
+
+  window.cookieConsent = function (accepted) {
+    setCookie(COOKIE_NAME, accepted ? "accepted" : "declined", COOKIE_DAYS);
+    document.getElementById("cookie-banner").classList.add("hidden");
+    if (accepted) { trackPageView(); sendPixel(); }
+  };
+
+  function trackPageView() {
+    var page = window.location.pathname;
+    var referrer = document.referrer || "direct";
+    var startTime = Date.now();
+
+    fetch(TRACK_ENDPOINT + "/pageview", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ page: page, referrer: referrer, title: document.title, ts: new Date().toISOString() })
+    }).catch(function () {});
+
+    window.addEventListener("beforeunload", function () {
+      var timeSpent = Math.round((Date.now() - startTime) / 1000);
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(TRACK_ENDPOINT + "/dwell", JSON.stringify({ page: page, seconds: timeSpent }));
+      }
+    });
+
+    document.addEventListener("click", function (e) {
+      var el = e.target.closest("a, button");
+      if (!el) return;
+      var label = el.textContent.trim().slice(0, 50) || el.getAttribute("href") || "unknown";
+      fetch(TRACK_ENDPOINT + "/click", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ page: page, clicked: label })
+      }).catch(function () {});
+    }, { passive: true });
+  }
+
+  function sendPixel() {
+    var img = new Image();
+    img.src = TRACK_ENDPOINT + "?t=" + Date.now();
+    img.style.display = "none";
+    document.body.appendChild(img);
+  }
+
+  function setCookie(name, value, days) {
+    var d = new Date();
+    d.setTime(d.getTime() + days * 86400000);
+    document.cookie = name + "=" + value + ";expires=" + d.toUTCString() + ";path=/;SameSite=Lax";
+  }
+  function getCookie(name) {
+    var cookies = document.cookie.split(";");
+    for (var i = 0; i < cookies.length; i++) {
+      var c = cookies[i].trim();
+      if (c.indexOf(name + "=") === 0) return c.substring(name.length + 1);
+    }
+    return null;
+  }
+})();
+</script>
 </body>
 </html>
 
